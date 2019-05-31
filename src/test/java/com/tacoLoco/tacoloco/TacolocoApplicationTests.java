@@ -43,12 +43,6 @@ public class TacolocoApplicationTests {
 		assertEquals(2,tacoService.getTacos().size());
 	}
 	
-	@Test
-	public void getOrderByIdTest() {
-		Long id=(long) 1002;
-		when(orderRepository.findOne(id)).thenReturn(new Order((long) 1002,2.50,3));
-		assertEquals(1002,orderService.getOrderById());	
-	}
 	
 	@Test
 	public void finalPriceTest() {	
@@ -63,7 +57,9 @@ public class TacolocoApplicationTests {
 	@Test
 	public void postOrderTest() {
 		Order order=new Order((long) 1002,10.00,4);
-		when(orderRepository.save(order)).thenReturn(order);
+		orderService.postOrder(order);
+		verify(orderRepository, times(1)).save(order);
+		
 	}
 	
 	@Test
